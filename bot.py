@@ -1,7 +1,11 @@
 import discord
+import json
 from discord.ext import commands
 
-TOKEN = 'OTE4NTYyNzk0MjI2NDc5MTU0.YbJERA.cYBIueSYR1unpeflXOPBG2KINnQ'
+#Using json to hide token but still use token
+with open("config.json","r") as f:
+    temp = json.load(f)
+TOKEN = temp["token"]
 
 description = '''Bella_Bot'''
 bot = commands.Bot(command_prefix="?", description=description)
