@@ -1,4 +1,5 @@
 import discord
+import random
 import time
 from datetime import datetime
 import json
@@ -47,6 +48,40 @@ async def hungerGames(ctx, arg1=None, arg2=None, arg3=None, arg4=None, arg5=None
         
 @bot.command()
 async def bellaPhoto(ctx):
-    await ctx.send(file=discord.File(r'bella01.jpeg'))
+    print(str(ctx.author.name) + ' used bellaPhoto command at ' + datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
+    choice = random.randrange(0,20)
+    while True:
+        if choice == 0:
+            await ctx.send(file=discord.File(r'bella01.jpeg'))
+            break
+        elif choice == 5:
+            await ctx.send(file=discord.File(r'bella06.jpg'))
+            break
+        elif choice == 6:
+            await ctx.send(file=discord.File(r'bella07.jpg'))
+            break
+        elif choice == 7:
+            await ctx.send(file=discord.File(r'bella08.jpg'))
+            break
+        elif choice == 8:
+            await ctx.send(file=discord.File(r'bella09.jpg'))
+            break
+        elif choice == 10:
+            await ctx.send(file=discord.File(r'bella11.jpg'))
+            break
+        elif choice == 11:
+            await ctx.send(file=discord.File(r'bella12.jpg'))
+            break
+        elif choice == 12:
+            await ctx.send(file=discord.File(r'bella13.jpg'))
+            break
+        elif choice == 13:
+            await ctx.send(file=discord.File(r'bella14.jpg'))
+            break
+        elif choice == 15:
+            await ctx.send(file=discord.File(r'bella16.jpg'))
+            break
+        else:
+            choice = random.randrange(0,20)
     
 bot.run(TOKEN)
