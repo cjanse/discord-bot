@@ -54,6 +54,15 @@ async def bellaPhoto(ctx):
         if choice == 0:
             await ctx.send(file=discord.File(r'bella01.jpeg'))
             break
+        elif choice == 1:
+            await ctx.send(file=discord.File(r'bella02.jpg'))
+            break
+        elif choice == 2:
+            await ctx.send(file=discord.File(r'bella03.JPG'))
+            break
+        elif choice == 3:
+            await ctx.send(file=discord.File(r'bella04.jpg'))
+            break
         elif choice == 5:
             await ctx.send(file=discord.File(r'bella06.jpg'))
             break
