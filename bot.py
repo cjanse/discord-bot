@@ -1,5 +1,8 @@
 import discord
+import time
+from datetime import datetime
 import json
+import HungerGames
 from discord.ext import commands
 
 #Using json to hide token but still use token
@@ -10,20 +13,40 @@ TOKEN = temp["token"]
 description = '''Bella_Bot'''
 bot = commands.Bot(command_prefix="?", description=description)
 
+#global variables (please forgive me good coding practices)
+game = HungerGames.hungerGames()
+
 @bot.event
 async def on_ready():
     print('Logged in as')
     print(bot.user.name)
     print(bot.user.id)
+    print('Coming online at ' + datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
     print('------')
 
 @bot.command()
 async def helloWorld(ctx):
-    print('helloWorld command used')
+    print(str(ctx.author.name) + ' used helloWorld command at ' + datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
     await ctx.send("Hola mundo")
     
 @bot.command()
-async def testArgs(ctx, arg1):
-    await ctx.send(arg1[0] + arg1[2:])
+async def hungerGames(ctx, arg1=None, arg2=None, arg3=None, arg4=None, arg5=None, arg6=None, arg7=None, arg8=None, arg9=None,arg10=None,arg11=None,arg12=None, arg13=None, arg14=None, arg15=None, arg16=None, arg17=None,arg18=None,arg19=None,arg20=None):
+    print(str(ctx.author.name) + ' used hungerGames command at ' + datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
+    tributes = [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20]
+    try:
+        while True:
+            tributes.remove(None)
+    except ValueError:
+        pass
+    if (arg1==None):
+        await ctx.send("You need to include at least one tribute!")
+    else:
+        await ctx.send("Executing Hunger Games Simulator...")
+        gameString = game.runGame(tributes)
+        await ctx.send(gameString)
+        
+@bot.command()
+async def bellaPhoto(ctx):
+    await ctx.send(file=discord.File(r'bella01.jpeg'))
     
 bot.run(TOKEN)
