@@ -159,7 +159,7 @@ async def bellaVoice(ctx, action=None):
             await ctx.send("You are not not in a voice channel, you must be in a voice channel to run this command")
     elif (action != None and action.lower() == 'leave'):
         if (ctx.voice_client):
-            await ctx.guild.voice_client.disconect()
+            await ctx.guild.voice_client.disconnect()
             await ctx.send("I left the voice channel")
         else:
             await ctx.send("I am not in a voice channel")
