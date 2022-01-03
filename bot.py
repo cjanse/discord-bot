@@ -106,4 +106,13 @@ async def bellaPhoto(ctx):
         else:
             choice = random.randrange(0,20)
     
+@bot.command(passs_context = True)
+async def join(ctx, action):
+    
+    if (ctx.author.voice):
+        channel = ctx.message.author.voice.channel
+        await channel.connect()
+    else:
+        await ctx.send("You are not not in a voice channel, you must be in a voice channel to run this command")
+
 bot.run(TOKEN)
