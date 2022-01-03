@@ -157,7 +157,7 @@ async def bellaVoice(ctx, action=None):
         if (ctx.author.voice):
             channel = ctx.message.author.voice.channel
             voice = await channel.connect()
-            source = FFMpegPCMAudio('Espero.m4a')
+            source = FFmpegPCMAudio('Espero.m4a')
             player = voice.play(source)
         else:
             await ctx.send("You are not not in a voice channel, you must be in a voice channel to run this command")
