@@ -6,13 +6,16 @@ import json
 import HungerGames
 from discord.ext import commands
 
+intents = discord.Intents.default()
+intents.members = True
+
 #Using json to hide token but still use token
 with open("config.json","r") as f:
     temp = json.load(f)
 TOKEN = temp["token"]
 
 description = '''Bella_Bot'''
-bot = commands.Bot(command_prefix="?", description=description)
+bot = commands.Bot(command_prefix="?", description=description, intents=intents)
 
 #global variables (please forgive me good coding practices)
 game = HungerGames.hungerGames()
@@ -26,6 +29,11 @@ async def on_ready():
     print(bot.user.id)
     print('Coming online at ' + datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
     print('------')
+
+@client.event
+async def on_member_join(member):
+    channel = client.get_channel(919618504091652109)
+    await channel.send("Hello! Welcome to the server. We're happy you're here. \n\n¡Hola! Bienvenidos al servidor. Estamos felices que estés aquí.")
 
 @bot.command()
 async def helloWorld(ctx):
