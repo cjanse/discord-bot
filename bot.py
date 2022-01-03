@@ -16,6 +16,8 @@ bot = commands.Bot(command_prefix="?", description=description)
 
 #global variables (please forgive me good coding practices)
 game = HungerGames.hungerGames()
+userTributes = []
+bellaPhotoChoices = []
 
 @bot.event
 async def on_ready():
@@ -34,21 +36,34 @@ async def helloWorld(ctx):
 async def hungerGames(ctx, arg1=None, arg2=None, arg3=None, arg4=None, arg5=None, arg6=None, arg7=None, arg8=None, arg9=None,arg10=None,arg11=None,arg12=None, arg13=None, arg14=None, arg15=None, arg16=None, arg17=None,arg18=None,arg19=None,arg20=None):
     print(str(ctx.author.name) + ' used hungerGames command at ' + datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
     tributes = [arg1, arg2, arg3, arg4, arg5, arg6, arg7, arg8, arg9, arg10, arg11, arg12, arg13, arg14, arg15, arg16, arg17, arg18, arg19, arg20]
+    if ctx.author.name not in userTributes:
+        userTributes.append(ctx.author.name)
     try:
         while True:
             tributes.remove(None)
     except ValueError:
         pass
     if (arg1==None):
-        await ctx.send("You need to include at least one tribute!")
+        await ctx.send("Welcome to the Quarter Quell where everyone who used the hungerGames command will now participate in their own Hunger Games!")
+        gameString = game.runGame(userTributes)
+        await ctx.send(gameString)
     else:
         await ctx.send("Executing Hunger Games Simulator...")
         gameString = game.runGame(tributes)
         await ctx.send(gameString)
         
 @bot.command()
-async def bellaPhoto(ctx):
+async def bellaPhoto(ctx, action=None):
     print(str(ctx.author.name) + ' used bellaPhoto command at ' + datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
+    if (not (action == None) and action.lower() == "status"):
+        bellaString = ""
+        for x in range (0,18):
+            if x in bellaPhotoChoices:
+                bellaString += "bella" + str(x+1) + " - found\n"
+            else:
+                bellaString += "bella" + str(x+1) + " - missing\n"
+        await ctx.send(bellaString)
+        return
     choice = random.randrange(0,20)
     while True:
         if choice == 0:
@@ -63,6 +78,9 @@ async def bellaPhoto(ctx):
         elif choice == 3:
             await ctx.send(file=discord.File(r'bella04.jpg'))
             break
+        elif choice == 4:
+            await ctx.send(file=discord.File(r'bella05.jpg'))
+            break
         elif choice == 5:
             await ctx.send(file=discord.File(r'bella06.jpg'))
             break
@@ -74,6 +92,9 @@ async def bellaPhoto(ctx):
             break
         elif choice == 8:
             await ctx.send(file=discord.File(r'bella09.jpg'))
+            break
+        elif choice == 9:
+            await ctx.send(file=discord.File(r'bella10.jpg'))
             break
         elif choice == 10:
             await ctx.send(file=discord.File(r'bella11.jpg'))
@@ -87,10 +108,32 @@ async def bellaPhoto(ctx):
         elif choice == 13:
             await ctx.send(file=discord.File(r'bella14.jpg'))
             break
+        elif choice == 14:
+            await ctx.send(file=discord.File(r'bella15.jpg'))
+            break
         elif choice == 15:
             await ctx.send(file=discord.File(r'bella16.jpg'))
             break
+        elif choice == 16:
+            await ctx.send(file=discord.File(r'bella17.jpg'))
+            break
+        elif choice == 17:
+            await ctx.send(file=discord.File(r'bella18.jpg'))
+            break
         else:
             choice = random.randrange(0,20)
+        
+    if choice not in bellaPhotoChoices or len(bellaPhotoChoices) == 0:
+        bellaString = "Congrats you a found a new Bella photo! bella" + str(choice+1)
+        bellaPhotoChoices.append(choice)
+        if len(bellaPhotoChoices) < 18:
+            if len(bellaPhotoChoices) == 17:
+                bellaString += "\nYou are still missing " + str(18-len(bellaPhotoChoices)) + " Bella Photo!"
+            else:
+                bellaString += "\nYou are still missing " + str(18-len(bellaPhotoChoices)) + " Bella Photos!"
+        else:    
+            bellaString += "\nYOU FOUND ALL THE BELLA PHOTOS!!!"
+        await ctx.send(bellaString)
+            
     
 bot.run(TOKEN)
