@@ -30,8 +30,13 @@ async def on_ready():
 
 @bot.event
 async def on_member_join(member):
-    channel = client.get_channel(919618504091652109)
+    channel = bot.get_channel(919618504091652109)
     await channel.send("Hello! Welcome to the server. We're happy you're here. \n\n¡Hola! Bienvenidos al servidor. Estamos felices que estés aquí.")
+
+@bot.event
+async def on_member_remove(member):
+    channel = bot.get_channel(919618504091652109)
+    await channel.send("Goodbye \n\nAdiós")
 
 @bot.command()
 async def helloWorld(ctx):
