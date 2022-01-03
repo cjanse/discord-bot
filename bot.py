@@ -149,13 +149,19 @@ async def bellaPhoto(ctx, action=None):
         await ctx.send(bellaString)
             
     
-@bot.command(passs_context = True)
-async def join(ctx, action):
-    
-    if (ctx.author.voice):
-        channel = ctx.message.author.voice.channel
-        await channel.connect()
-    else:
-        await ctx.send("You are not not in a voice channel, you must be in a voice channel to run this command")
+@bot.command(pass_context = True)
+async def bellaVoice(ctx, action=None):
+    if (action != None and action.lower() == 'join'):
+        if (ctx.author.voice):
+            channel = ctx.message.author.voice.channel
+            await channel.connect()
+        else:
+            await ctx.send("You are not not in a voice channel, you must be in a voice channel to run this command")
+    elif (action != None and action.lower() == 'leave'):
+        if (ctx.voice_client):
+            await ctx.guild.voice_client.disconect()
+            await ctx.send("I left the voice channel")
+        else:
+            await ctx.send("I am not in a voice channel")
 
 bot.run(TOKEN)
