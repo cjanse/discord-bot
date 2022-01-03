@@ -5,6 +5,7 @@ from datetime import datetime
 import json
 import HungerGames
 from discord.ext import commands
+from discord import FFmpegPCMAudio
 
 intents = discord.Intents.default()
 intents.members = True
@@ -151,10 +152,13 @@ async def bellaPhoto(ctx, action=None):
     
 @bot.command(pass_context = True)
 async def bellaVoice(ctx, action=None):
+    print(str(ctx.author.name) + ' used bellaVoice command at ' + datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
     if (action != None and action.lower() == 'join'):
         if (ctx.author.voice):
             channel = ctx.message.author.voice.channel
-            await channel.connect()
+            voice = await channel.connect()
+            source = FFMpegPCMAudio('Espero.m4a')
+            player = voice.play(source)
         else:
             await ctx.send("You are not not in a voice channel, you must be in a voice channel to run this command")
     elif (action != None and action.lower() == 'leave'):
