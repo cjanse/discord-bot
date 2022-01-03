@@ -30,7 +30,7 @@ async def on_ready():
     print('Coming online at ' + datetime.now().strftime("%m/%d/%Y %H:%M:%S"))
     print('------')
 
-@client.event
+@bot.event
 async def on_member_join(member):
     channel = client.get_channel(919618504091652109)
     await channel.send("Hello! Welcome to the server. We're happy you're here. \n\n¡Hola! Bienvenidos al servidor. Estamos felices que estés aquí.")
